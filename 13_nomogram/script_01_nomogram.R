@@ -88,21 +88,18 @@ med  <- Quantile(f_cph)
 surv <- Survival(f_cph) 
 
 pdf("nomogram_distribution.pdf")
-regplot(f_cph,        #对观测2的六个指标在列线图上进行计分展示        
-        #        observation=rt[6,], #也可以不展示        
+regplot(f_cph,           
         points=TRUE,        
-        plots=c("density","no plot"),        #预测1年和2年的死亡风险，此处单位是day        
+        plots=c("density","no plot"),        
         failtime = c(3,5,10),
         odds=F,        
         droplines=F,        
         leftlabel=T,        
-        prfail = TRUE, #cox回归中需要TRUE        
-        showP = T, #是否展示统计学差异        
-        #droplines = F,#观测2示例计分是否画线        #    
-        #        colors = mycol, #用前面自己定义的颜色        
-        rank="range", #根据统计学差异的显著性进行变量的排序        
+        prfail = TRUE, 
+        showP = T, 
+        rank="range", 
         interval="confidence",        
-        title="Cox regression") #展示观测的可信区间## [[1]]##   
+        title="Cox regression") 
 dev.off()
 
 
