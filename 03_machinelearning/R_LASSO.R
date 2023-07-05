@@ -5,7 +5,7 @@ rm(list=ls())
 library("glmnet")
 library("survival")
 set.seed(1)
-rt=read.table("../uniSigExp.txt",header=T,sep="\t",row.names=1,check.names=F)       #读取文件
+rt=read.table("../uniSigExp.txt",header=T,sep="\t",row.names=1,check.names=F)       
 rt$futime[rt$futime<=0]=1
 rt<-na.omit(rt)
 rt_cp<-apply(rt, 2, as.numeric)
