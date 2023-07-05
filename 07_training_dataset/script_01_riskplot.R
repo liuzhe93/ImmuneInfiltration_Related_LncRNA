@@ -1,4 +1,5 @@
-setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_survival_analysis")
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_training_dataset")
+
 rm(list=ls()) 
 library(survival)
 library("survminer")
