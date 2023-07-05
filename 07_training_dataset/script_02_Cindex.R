@@ -1,4 +1,4 @@
-setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_traininng_dataset")
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_training_dataset")
 rm(list=ls())
 
 ###############################################GSE C-index calculation##########################################
