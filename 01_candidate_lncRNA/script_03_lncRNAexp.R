@@ -14,15 +14,9 @@ cel.files <- list.files(path = "/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/
                         pattern = ".+\\.cel.gz$", ignore.case = TRUE,
                         full.names = TRUE, recursive = TRUE)
 basename(cel.files)
-data.raw <- ReadAffy(filenames = cel.files)#读入数据
+data.raw <- ReadAffy(filenames = cel.files)
 sampleNames(data.raw)
 est <- rma(data.raw)
-#使用整合好的一体化函数对数据进行标准化是最常见的方式，常用的一体化函数有rma，gcrma和mas5.
-#rma（Robust Multiarray Average）算法是最常用的算法之一，等价于
-#expresso(data,bgcorrect.method="rma",normalize.method="quantiles",pmcorrect.method="pmonly",summary.method="medianpolish")
-#其中normalize.method使用的quantiles方法，无需假设任何参数，因此适用于质量不好的芯片，如Agilent的芯片
-#affy包整合了rma函数，可以直接使用rma函数进行标准化。
-#注意，rma算法返回值经过log2变换。
 expmtx_expso <- exprs(est)
 write.csv(expmtx_expso, file="expmtx_expso.csv")
 
