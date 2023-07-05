@@ -19,15 +19,15 @@ table = data.frame(
 )
 print(table) # 查看 table 数据
 pdf("C-index.pdf")
-barplot(height = c(0.59206244, 0.59942799),  # 绘图数据（矩阵）
-        names.arg = c('TCGA', 'GSE39582'),  # 柱子名称
-        col = 'steelblue',  # 填充颜色
-        border = '#ffffff',   # 轮廓颜色
-        xlab = 'dataset',  # X轴名称
-        ylab = 'C-index',  # Y轴名称
-        main = 'C-index',  # 主标题
-        horiz = FALSE,  # 是否为水平放置
-        ylim = c(0, 0.7), # Y轴取值范围
+barplot(height = c(0.59206244, 0.59942799),  
+        names.arg = c('TCGA', 'GSE39582'),  
+        col = 'steelblue',  
+        border = '#ffffff',   
+        xlab = 'dataset', 
+        ylab = 'C-index',  
+        main = 'C-index',  
+        horiz = FALSE,  
+        ylim = c(0, 0.7), 
 )
 dev.off()
 
