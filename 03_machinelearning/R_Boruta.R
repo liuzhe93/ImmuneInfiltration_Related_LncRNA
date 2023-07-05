@@ -1,8 +1,6 @@
 setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/03_machinelearning/Boruta")
 rm(list=ls())
 
-#ref:https://zhuanlan.zhihu.com/p/601659838
-
 #####################################2. Boruta######################################################
 library("mlbench")
 library("Boruta")
@@ -21,14 +19,14 @@ y=data.matrix(Surv(as.numeric(mydata$futime),as.numeric(mydata$fustat)))
 rownames(y)<-rownames(x)
 #Boruta_data<-Boruta(x, y,pValue = 0.01,mcAdj = TRUE,maxRuns = 100,doTrace = 0,holdHistory = TRUE,getImp = getImpRfZ)
 Boruta_data <- Boruta(x,y,pValue = 0.05)
-attStats(Boruta_data) #给出Boruta算法的结果
+attStats(Boruta_data) 
 temp<-attStats(Boruta_data)
 table(temp$decision)
-getSelectedAttributes(Boruta_data, withTentative = T)#获得确认的特征
+getSelectedAttributes(Boruta_data, withTentative = T)
 #[1] "DSCR10"    "LINC00869" "CYB561D2"  "GABARAPL3" "LINC00652" "LINC01208"
 
 pdf("Attribute.pdf")
-plot(Boruta_data) #图形显示特征选择结果
+plot(Boruta_data) 
 dev.off()
 pdf("ClassifierRun.pdf")
 plotImpHistory(Boruta_data)
