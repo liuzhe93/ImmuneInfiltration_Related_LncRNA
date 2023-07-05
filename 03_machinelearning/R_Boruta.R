@@ -1,0 +1,40 @@
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/03_machinelearning/Boruta")
+rm(list=ls())
+
+#ref:https://zhuanlan.zhihu.com/p/601659838
+
+#####################################2. Boruta######################################################
+library("mlbench")
+library("Boruta")
+set.seed(1)
+uniSigExp<-read.table("../uniSigExp.txt",sep="\t",header=T,row.names = 1)
+uniSigExp<-na.omit(uniSigExp)
+x=as.matrix(uniSigExp[,c(3:ncol(uniSigExp))])
+y=data.matrix(Surv(as.numeric(uniSigExp$futime),as.numeric(uniSigExp$fustat)))
+rownames(y)<-rownames(x)
+mydata<-cbind(y,x)
+mydata<-na.omit(mydata)
+mydata<-as.data.frame(mydata)
+colnames(mydata)[1:2]<-c("futime","fustat")
+x=as.matrix(mydata[,c(3:ncol(mydata))])
+y=data.matrix(Surv(as.numeric(mydata$futime),as.numeric(mydata$fustat)))
+rownames(y)<-rownames(x)
+#Boruta_data<-Boruta(x, y,pValue = 0.01,mcAdj = TRUE,maxRuns = 100,doTrace = 0,holdHistory = TRUE,getImp = getImpRfZ)
+Boruta_data <- Boruta(x,y,pValue = 0.05)
+attStats(Boruta_data) #给出Boruta算法的结果
+temp<-attStats(Boruta_data)
+table(temp$decision)
+getSelectedAttributes(Boruta_data, withTentative = T)#获得确认的特征
+#[1] "DSCR10"    "LINC00869" "CYB561D2"  "GABARAPL3" "LINC00652" "LINC01208"
+
+pdf("Attribute.pdf")
+plot(Boruta_data) #图形显示特征选择结果
+dev.off()
+pdf("ClassifierRun.pdf")
+plotImpHistory(Boruta_data)
+dev.off()
+
+genelist_boruta<-getSelectedAttributes(Boruta_data, withTentative = T)
+length(genelist_boruta)
+#[1] 6
+write.csv(genelist_boruta, "genelist_Boruta.csv", quote = F, row.names = F)
