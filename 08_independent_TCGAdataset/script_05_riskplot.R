@@ -13,8 +13,8 @@ pValue=format(pValue, scientific = TRUE)
 
 fit <- survfit(Surv(futime, fustat) ~ risk, data = rt)
 
-summary(fit)    #查看五年生存率
-###################################模型评估：AUC###################################################
+summary(fit)    
+###################################AUC###################################################
 library(survivalROC)
 pdf(file="ROC.pdf",width=6,height=6)
 
@@ -30,12 +30,12 @@ plot(roc$FP, roc$TP, type="l", xlim=c(0,1), ylim=c(0,1),col='red',
 abline(0,1)
 dev.off()
 
-###################################模型评估：风险图###################################################
+###################################risk plot###################################################
 library(pheatmap)
 rt=read.table("risk.txt",header=T,sep="\t",row.names = 1)
-rt=rt[order(rt$riskScore),]                                     #按照riskScore对样品排序
+rt=rt[order(rt$riskScore),]                                     
 
-#绘制风险曲线
+#risk curve
 riskClass=rt[,"risk"]
 lowLength=length(riskClass[riskClass=="low"])
 highLength=length(riskClass[riskClass=="high"])
@@ -52,7 +52,7 @@ plot(line,
 abline(h=median(rt$riskScore),v=lowLength,lty=2)
 dev.off()
 
-#绘制生存状态图
+#survival status
 color=as.vector(rt$fustat)
 color[color==1]="red"
 color[color==0]="green"
@@ -65,7 +65,7 @@ plot(rt$futime,
 abline(v=lowLength,lty=2)
 dev.off()
 
-#绘制风险热图
+#risk heatmap
 rt1=rt[c(3:(ncol(rt)-2))]
 rt1=t(rt1)
 annotation=data.frame(type=rt[,ncol(rt)])
