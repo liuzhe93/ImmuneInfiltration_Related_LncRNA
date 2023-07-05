@@ -29,7 +29,6 @@ library("ggforce")
 merged_data_high<-subset(merged_data,risk=="high")
 merged_data_low<-subset(merged_data,risk=="low")
 ###############################################Status#################################################################
-#变量：生存分析的变量有两个：生存时间t和结局变量(0-1)。其中结局变量1表示死亡事件，0表示截尾。
 ########high risk group##############
 merged_data_high_status<-merged_data_high[,"Status"]
 table(merged_data_high$Status)
@@ -213,7 +212,6 @@ chisq.test(merged_gender_data)
 #X-squared = 1.8403, df = 1, p-value = 0.1749
 
 ###############################################TCGA_Age#################################################################
-#变量：生存分析的变量有两个：生存时间t和结局变量(0-1)。其中结局变量1表示死亡事件，0表示截尾。
 merged_data$Age_ope<-ifelse(merged_data$Age>=60,">=60","<60")
 merged_data_high<-subset(merged_data,risk=="high")
 merged_data_low<-subset(merged_data,risk=="low")
