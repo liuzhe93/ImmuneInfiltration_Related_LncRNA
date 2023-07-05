@@ -21,17 +21,15 @@ exp$SampleName<-substr(exp$SampleName,1,12)
 exp$SampleName<-gsub("\\.","-",exp$SampleName)
 data1<-merge(data,exp,by.x="TCGA.Participant.Barcode",by.y="SampleName")
 
-library(survival)                                         #引用包
+library(survival)                                         
 
 
-rt=read.table("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/06_multivariateCox_regression/risk.txt",header=T,sep="\t",check.names=F,row.names=1)    #读取输入文件
+rt=read.table("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/06_multivariateCox_regression/risk.txt",header=T,sep="\t",check.names=F,row.names=1)    
 
-#COX模型构建
 multiCox=coxph(Surv(futime, fustat) ~ ., data = rt)
 multiCox=step(multiCox,direction = "both")
 multiCoxSum=summary(multiCox)
 
-#输出模型参数
 outTab=data.frame()
 outTab=cbind(
   coef=multiCoxSum$coefficients[,"coef"],
@@ -53,7 +51,6 @@ input_data_C1$CYB561D2<-as.numeric(input_data_C1$CYB561D2)
 input_data_C1$LINC00638<-as.numeric(input_data_C1$LINC00638)
 input_data_C1$DANCR<-as.numeric(input_data_C1$DANCR)
 
-#输出病人风险值
 riskScore=predict(multiCox,type="risk",newdata=input_data_C1)
 input_data_C1$Score<-riskScore
 
@@ -63,7 +60,7 @@ input_data_C2$fustat<-as.numeric(input_data_C2$fustat)
 input_data_C2$CYB561D2<-as.numeric(input_data_C2$CYB561D2)
 input_data_C2$LINC00638<-as.numeric(input_data_C2$LINC00638)
 input_data_C2$DANCR<-as.numeric(input_data_C2$DANCR)
-#输出病人风险值
+
 riskScore=predict(multiCox,type="risk",newdata=input_data_C2)
 input_data_C2$Score<-riskScore
 
@@ -73,7 +70,7 @@ input_data_C3$fustat<-as.numeric(input_data_C3$fustat)
 input_data_C3$CYB561D2<-as.numeric(input_data_C3$CYB561D2)
 input_data_C3$LINC00638<-as.numeric(input_data_C3$LINC00638)
 input_data_C3$DANCR<-as.numeric(input_data_C3$DANCR)
-#输出病人风险值
+
 riskScore=predict(multiCox,type="risk",newdata=input_data_C3)
 input_data_C3$Score<-riskScore
 
@@ -83,7 +80,7 @@ input_data_C4$fustat<-as.numeric(input_data_C4$fustat)
 input_data_C4$CYB561D2<-as.numeric(input_data_C4$CYB561D2)
 input_data_C4$LINC00638<-as.numeric(input_data_C4$LINC00638)
 input_data_C4$DANCR<-as.numeric(input_data_C4$DANCR)
-#输出病人风险值
+
 riskScore=predict(multiCox,type="risk",newdata=input_data_C4)
 input_data_C4$Score<-riskScore
 
@@ -93,7 +90,7 @@ input_data_C5$fustat<-as.numeric(input_data_C5$fustat)
 input_data_C5$CYB561D2<-as.numeric(input_data_C5$CYB561D2)
 input_data_C5$LINC00638<-as.numeric(input_data_C5$LINC00638)
 input_data_C5$DANCR<-as.numeric(input_data_C5$DANCR)
-#输出病人风险值
+
 riskScore=predict(multiCox,type="risk",newdata=input_data_C5)
 input_data_C5$Score<-riskScore
 
@@ -103,7 +100,7 @@ input_data_C6$fustat<-as.numeric(input_data_C6$fustat)
 input_data_C6$CYB561D2<-as.numeric(input_data_C6$CYB561D2)
 input_data_C6$LINC00638<-as.numeric(input_data_C6$LINC00638)
 input_data_C6$DANCR<-as.numeric(input_data_C6$DANCR)
-#输出病人风险值
+
 riskScore=predict(multiCox,type="risk",newdata=input_data_C6)
 input_data_C6$Score<-riskScore
 
