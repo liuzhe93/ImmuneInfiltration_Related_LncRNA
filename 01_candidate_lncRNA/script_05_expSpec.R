@@ -52,7 +52,6 @@ nortest1
 #Shapiro-Wilk normality test
 #data:  data_spec_sort$TissSpecScor
 #W = 0.99547, p-value = 0.0296
-#p-value反应服从正态分布的概率，值越小越小的概率符合，通常0.05做标准，大于0.05则表示符合正态分布（此处为0.2542），故符合正态分布
 
 library("dplyr")
 hklncRNA<-filter(data_spec_sort, data_spec_sort$TissSpecScor < 0.5)
