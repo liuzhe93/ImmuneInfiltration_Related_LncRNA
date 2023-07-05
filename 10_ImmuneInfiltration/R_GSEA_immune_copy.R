@@ -1,4 +1,4 @@
-setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/09_ImmuneInfiltration")
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/10_ImmuneInfiltration")
 rm(list=ls())
 library(clusterProfiler)
 library(ggplot2)
