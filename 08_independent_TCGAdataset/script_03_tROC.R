@@ -11,13 +11,12 @@ mydata$futime<-mydata$futime/365
 rt=mydata
 rownames(rt)<-rt$id
 rt<-rt[,-1]
-#rt<-na.omit(rt)
-#COX模型构建
+#COX model construction
 multiCox=coxph(Surv(futime, fustat) ~ ., data = rt)
 #multiCox=step(multiCox,direction = "both")
 multiCoxSum=summary(multiCox)
 
-#输出模型参数
+#print model parameters
 outTab=data.frame()
 outTab=cbind(
   coef=multiCoxSum$coefficients[,"coef"],
@@ -30,7 +29,7 @@ outTab$id<-rownames(outTab)
 outTab<-subset(outTab, select = c("id","coef","HR","HR.95L","HR.95H","pvalue"))
 write.table(outTab,file="multiCox.xls",sep="\t",row.names = F,quote=F)
 
-#输出病人风险值
+#print the risk value of patients
 riskScore=predict(multiCox,type="risk",newdata=rt)
 coxGene=rownames(multiCoxSum$coefficients)
 outCol=c("futime","fustat",coxGene)
