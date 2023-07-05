@@ -21,7 +21,7 @@ genes<-colnames(uniSigExp)[4:ncol(uniSigExp)]
 uniSigExp_filtered<-uniSigExp[,c("id","futime","fustat",genes)]
 dim(uniSigExp_filtered)
 #[1] 566   14
-mydata <- na.omit(uniSigExp_filtered) # 删除缺失值
+mydata <- na.omit(uniSigExp_filtered)
 dim(mydata)
 #[1] 562   14
 row.names(mydata)<-mydata$id
