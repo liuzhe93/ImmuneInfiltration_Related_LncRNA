@@ -14,10 +14,10 @@ pValue=format(pValue, scientific = TRUE)
 
 fit <- survfit(Surv(futime, fustat) ~ risk, data = rt)
 
-#绘制生存曲线
+#plot survival curve
 pdf(file="survival.pdf",onefile = FALSE,
-    width = 5.5,             #图片的宽度
-    height =5)             #图片的高度
+    width = 5.5,             
+    height =5)             
 ggsurvplot(fit, 
            data=rt,
            conf.int=TRUE,
