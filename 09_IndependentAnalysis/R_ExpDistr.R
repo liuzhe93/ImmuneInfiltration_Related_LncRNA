@@ -1,7 +1,7 @@
-setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/10_IndependentAnalysis")
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/09_IndependentAnalysis")
 rm(list=ls())
 
-clinical<-read.csv("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/10_IndependentAnalysis/SampleInfor.csv")
+clinical<-read.csv("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/09_IndependentAnalysis/SampleInfor.csv")
 clinical<-subset(clinical,select=c("Sample_geo_accession","Gender","Age","tnm.stage","tnm.t","tnm.n","tnm.m","os.event","os.delay"))
 colnames(clinical)<-c("Sample","Gender","Age","TNM_stage","TNM_t","TNM_n","TNM_m","fustat","futime")
 clinical$Gender<-gsub("Sex: ","",clinical$Gender)
@@ -50,7 +50,7 @@ write.table(merged_data,"indepInput.txt",sep="\t",row.names = F)
 library(survival)
 library(forestplot)
 
-clrs <- fpColors(box="green",line="darkblue", summary="royalblue")             #定义森林图颜色
+clrs <- fpColors(box="green",line="darkblue", summary="royalblue")             
 rt=read.table("indepInput.txt",header=T,sep="\t",check.names=F,row.names=1)
 
 outTab=data.frame()
@@ -68,7 +68,6 @@ for(i in colnames(rt[,3:ncol(rt)])){
 }
 write.table(outTab,file="uniCox.xls",sep="\t",row.names=F,quote=F)
 
-#绘制森林图
 rt=read.table("uniCox.xls",header=T,sep="\t",row.names=1,check.names=F)
 data=as.matrix(rt)
 HR=data[,1:3]
@@ -80,10 +79,10 @@ pVal=ifelse(pVal<0.001, "<0.001", sprintf("%.3f", pVal))
 tabletext <- 
   list(c(NA, rownames(HR)),
        append("pvalue", pVal),
-       append("Hazard ratio",paste0(hr,"(",hrLow,"-",hrHigh,")")) )          #定义图片文字
+       append("Hazard ratio",paste0(hr,"(",hrLow,"-",hrHigh,")")) )          
 pdf(file="forest_uni.pdf",onefile = FALSE,
-    width = 6,             #图片的宽度
-    height = 4,            #图片的高度
+    width = 6,             
+    height = 4,            
 )
 forestplot(tabletext, 
            rbind(rep(NA, 3), HR),
@@ -101,7 +100,7 @@ dev.off()
 library(survival)
 library(forestplot)
 
-clrs <- fpColors(box="red",line="darkblue", summary="royalblue")             #定义森林图颜色
+clrs <- fpColors(box="red",line="darkblue", summary="royalblue")             
 rt=read.table("indepInput.txt",header=T,sep="\t",check.names=F,row.names=1)
 
 multiCox=coxph(Surv(futime, fustat) ~ ., data = rt)
@@ -116,7 +115,6 @@ outTab=cbind(
 outTab=cbind(id=row.names(outTab),outTab)
 write.table(outTab,file="multiCox.xls",sep="\t",row.names=F,quote=F)
 
-#绘制森林图
 rt=read.table("multiCox.xls",header=T,sep="\t",row.names=1,check.names=F)
 data=as.matrix(rt)
 HR=data[,1:3]
@@ -128,10 +126,10 @@ pVal=ifelse(pVal<0.001, "<0.001", sprintf("%.3f", pVal))
 tabletext <- 
   list(c(NA, rownames(HR)),
        append("pvalue", pVal),
-       append("Hazard ratio",paste0(hr,"(",hrLow,"-",hrHigh,")")) )          #定义图片文字
+       append("Hazard ratio",paste0(hr,"(",hrLow,"-",hrHigh,")")) )          
 pdf(file="forest_multi.pdf",onefile = FALSE,
-    width = 6,             #图片的宽度
-    height = 4,            #图片的高度
+    width = 6,             
+    height = 4,            
 )
 forestplot(tabletext, 
            rbind(rep(NA, 3), HR),
