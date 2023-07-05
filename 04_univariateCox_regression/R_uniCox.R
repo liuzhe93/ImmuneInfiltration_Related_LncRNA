@@ -1,8 +1,8 @@
 setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/04_univariateCox_regression")
 rm(list=ls())
 
-pFilter=0.05                                                      #定义单因素显著性
-library(survival)                                                 #引用包
+pFilter=0.05                                                      
+library(survival)                                                 
 feature<-read.csv("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/03_machinelearning/value_lncRNAs.csv")
 lncRNAs<-feature$x
 lncRNAs<-gsub("\\-","\\.",lncRNAs)
