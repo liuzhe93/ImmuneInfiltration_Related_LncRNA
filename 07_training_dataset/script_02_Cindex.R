@@ -1,4 +1,4 @@
-setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_survival_analysis")
+setwd("/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/07_traininng_dataset")
 rm(list=ls())
 
 ###############################################GSE C-index calculation##########################################
@@ -14,7 +14,7 @@ genes<-c("CYB561D2", "LINC00638", "DANCR")
 uniSigExp_filtered<-uniSigExp[,c("id","futime","fustat",genes)]
 dim(uniSigExp_filtered)
 #[1] 566   6
-mydata <- na.omit(uniSigExp_filtered) # 删除缺失值
+mydata <- na.omit(uniSigExp_filtered) 
 dim(mydata)
 #[1] 562   14
 row.names(mydata)<-mydata$id
