@@ -59,7 +59,6 @@ options(datadist='ddist')
 f_cph <- cph(Surv(futime,fustat) ~ Age+Gender+Stage+riskScore,
              x=T, y=T, surv=T,
              data=rt)
-#查看多因素Cox分析结果，最下方可见其对应的Coef、p值
 print(f_cph)
 ddist <- datadist(rt)
 options(datadist='ddist')
@@ -70,31 +69,31 @@ cal_2<-calibrate(f_cph,u=5,cmethod='KM',m=15,B=200)# usually B=200 or 300
 cal_3<-calibrate(f_cph,u=10,cmethod='KM',m=15,B=200)# usually B=200 or 300
 #par(mar=c(7,4,4,3),cex=1.0)
 pdf("calibrate_3_years.pdf",width=6,height=6) 
-plot(cal_1,lwd=2,lty=1, ##设置线条形状和尺寸
-     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), ##设置一个颜色
-     xlab='Nomogram-Predicted Probability of 1 years OS',#便签
-     ylab='Actual 3 years OS(proportion)',#标签
-     col=c(rgb(192,98,83,maxColorValue = 255)),#设置一个颜色
-     xlim = c(0,1),ylim = c(0,1),##x轴和y轴范围
-     mgp = c(2, 1, 0)) #控制坐标轴的位置
+plot(cal_1,lwd=2,lty=1, 
+     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), 
+     xlab='Nomogram-Predicted Probability of 1 years OS',
+     ylab='Actual 3 years OS(proportion)',
+     col=c(rgb(192,98,83,maxColorValue = 255)),
+     xlim = c(0,1),ylim = c(0,1),
+     mgp = c(2, 1, 0)) 
 dev.off()
 pdf("calibrate_5_years.pdf",width=6,height=6) 
-plot(cal_2,lwd=2,lty=1, ##设置线条形状和尺寸
-     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), ##设置一个颜色
-     xlab='Nomogram-Predicted Probability of 5 years OS',#便签
-     ylab='Actual 5 years OS(proportion)',#标签
-     col=c(rgb(192,98,83,maxColorValue = 255)),#设置一个颜色
-     xlim = c(0,1),ylim = c(0,1),##x轴和y轴范围
-     mgp = c(2, 1, 0)) #控制坐标轴的位置
+plot(cal_2,lwd=2,lty=1, 
+     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), 
+     xlab='Nomogram-Predicted Probability of 5 years OS',
+     ylab='Actual 5 years OS(proportion)',
+     col=c(rgb(192,98,83,maxColorValue = 255)),
+     xlim = c(0,1),ylim = c(0,1),
+     mgp = c(2, 1, 0)) 
 dev.off()
 pdf("calibrate_10_years.pdf",width=6,height=6) 
-plot(cal_3,lwd=2,lty=1, ##设置线条形状和尺寸
-     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), ##设置一个颜色
-     xlab='Nomogram-Predicted Probability of 10 years OS',#便签
-     ylab='Actual 10 years OS(proportion)',#标签
-     col=c(rgb(192,98,83,maxColorValue = 255)),#设置一个颜色
-     xlim = c(0,1),ylim = c(0,1),##x轴和y轴范围
-     mgp = c(2, 1, 0)) #控制坐标轴的位置
+plot(cal_3,lwd=2,lty=1, 
+     errbar.col=c(rgb(0,118,192,maxColorValue = 255)), 
+     xlab='Nomogram-Predicted Probability of 10 years OS',
+     ylab='Actual 10 years OS(proportion)',
+     col=c(rgb(192,98,83,maxColorValue = 255)),
+     xlim = c(0,1),ylim = c(0,1),
+     mgp = c(2, 1, 0)) 
 dev.off()
 
 
