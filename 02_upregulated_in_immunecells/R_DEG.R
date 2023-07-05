@@ -28,15 +28,9 @@ cel.files <- list.files(path = "/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/
                         pattern = ".+\\.cel.gz$", ignore.case = TRUE,
                         full.names = TRUE, recursive = TRUE)
 basename(cel.files)
-data.raw <- ReadAffy(filenames = cel.files)#读入数据
+data.raw <- ReadAffy(filenames = cel.files)
 sampleNames(data.raw)
 est <- rma(data.raw)
-#使用整合好的一体化函数对数据进行标准化是最常见的方式，常用的一体化函数有rma，gcrma和mas5.
-#rma（Robust Multiarray Average）算法是最常用的算法之一，等价于
-#expresso(data,bgcorrect.method="rma",normalize.method="quantiles",pmcorrect.method="pmonly",summary.method="medianpolish")
-#其中normalize.method使用的quantiles方法，无需假设任何参数，因此适用于质量不好的芯片，如Agilent的芯片
-#affy包整合了rma函数，可以直接使用rma函数进行标准化。
-#注意，rma算法返回值经过log2变换。
 expmtx_expso <- exprs(est)
 write.csv(expmtx_expso, file="expmtx_expso.csv", quote = F)
 library("hgu133plus2.db")
@@ -66,7 +60,7 @@ cel.files <- list.files(path = "/Users/liuzhe/Desktop/cityu/LncRNA_CRC/analysis/
                         pattern = ".+\\.cel.gz$", ignore.case = TRUE,
                         full.names = TRUE, recursive = TRUE)
 basename(cel.files)
-data.raw <- ReadAffy(filenames = cel.files)#读入数据
+data.raw <- ReadAffy(filenames = cel.files)
 sampleNames(data.raw)
 est <- rma(data.raw)
 expmtx_expso <- exprs(est)
@@ -117,7 +111,7 @@ label<-c(rep(1,115),rep(2,566));
 exp<-cbind(normal,cancer)
 exp_fil<-na.omit(exp)
 samfit<-SAM(exp_fil,label,resp.type="Two class unpaired",geneid=gid,genenames=gid,nperms=1000,logged2=T,fdr.output=fdrcutoff)
-####注：fdr.output是一个近似的阈值
+
 siggene.up<-cbind(samfit$siggenes.table$genes.up[,1],as.numeric(samfit$siggenes.table$genes.up[,7])/100)
 siggene.down<-cbind(samfit$siggenes.table$genes.lo[,1],as.numeric(samfit$siggenes.table$genes.lo[,7])/100)
 sig.up<-siggene.up[siggene.up[,2]<fdrcutoff,1];
